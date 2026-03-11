@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Join Mixmomnt</title>
+  <meta name="description" content="Create your Mixmomnt account. No face required." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/app.css" />
+  <style>
+    .auth-wrap {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 16px 32px; /* top clears navbar */
+    }
+    .auth-heading {
+      margin-bottom: 6px;
+      font-size: 1.65rem;
+    }
+    .auth-sub {
+      color: var(--text-2);
+      font-size: 0.9rem;
+      margin-bottom: 28px;
+    }
+    .form-footer {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-2);
+    }
+    .form-footer a {
+      color: var(--amber);
+      font-weight: 600;
+    }
+    .form-footer a:hover { color: var(--amber-h); }
+    .success-msg {
+      display: none;
+      background: var(--elevated);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      text-align: center;
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .success-msg.show { display: block; }
+    .success-icon {
+      font-size: 2rem;
+      margin-bottom: 12px;
+    }
+    /* Reserve space for field-level errors to prevent layout shift */
+    .form-error { min-height: 1em; }
+    .form-global-error {
+      font-size: 0.85rem;
+      color: var(--error);
+      min-height: 1.2em;
+      margin-bottom: 12px;
+      display: none;
+    }
+    .form-global-error.show { display: block; }
+  </style>
+</head>
+<body class="page-loading">
+
+  <nav class="app-nav">
+    <a href="/" class="nav-logo">mix<em>momnt</em></a>
+  </nav>
+
+  <main class="auth-wrap">
+    <div class="form-card">
+      <h1 class="auth-heading">Create your account</h1>
+      <p class="auth-sub">No face required.</p>
+
+      <div id="global-error" class="form-global-error" role="alert"></div>
+
+      <form id="signup-form" novalidate>
+        <div class="form-field">
+          <label class="form-label" for="email">Email</label>
+          <input
+            class="form-input"
+            type="email"
+            id="email"
+            name="email"
+            autocomplete="email"
+            placeholder="you@example.com"
+            required
+          />
+          <span class="form-error" id="email-error" role="alert"></span>
+        </div>
+
+        <div class="form-field">
+          <label class="form-label" for="password">Password</label>
+          <input
+            class="form-input"
+            type="password"
+            id="password"
+            name="password"
+            autocomplete="new-password"
+            placeholder="At least 8 characters"
+            minlength="8"
+            required
+          />
+          <span class="form-error" id="password-error" role="alert"></span>
+        </div>
+
+        <div class="form-field">
+          <label class="form-label" for="confirm-password">Confirm password</label>
+          <input
+            class="form-input"
+            type="password"
+            id="confirm-password"
+            name="confirm-password"
+            autocomplete="new-password"
+            placeholder="Repeat your password"
+            required
+          />
+          <span class="form-error" id="confirm-error" role="alert"></span>
+        </div>
+
+        <button type="submit" class="btn-primary" id="submit-btn">
+          Create account
+        </button>
+      </form>
+
+      <div id="success-msg" class="success-msg" role="status">
+        <div class="success-icon">&#9993;</div>
+        <p><strong>Check your inbox.</strong></p>
+        <p style="margin-top: 8px; color: var(--text-2); font-size: 0.9rem;">
+          Confirm your email to activate your account, then log in.
+        </p>
+      </div>
+
+      <p class="form-footer">
+        Already have an account? <a href="/login.html">Log in</a>
+      </p>
+    </div>
+  </main>
+
+  <script type="module" src="/js/signup.js"></script>
+</body>
+</html>

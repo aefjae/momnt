@@ -44,6 +44,16 @@ export async function redirectIfAuth(redirectTo = '/profile-setup.html') {
 }
 
 /**
+ * Sign out the current user and redirect to /login.html.
+ * AUTH-03 — call this from any page's "Log out" button.
+ * Usage: import { logout } from '/js/auth-guard.js'
+ */
+export async function logout() {
+  await supabase.auth.signOut()
+  window.location.href = '/login.html'
+}
+
+/**
  * Render an avatar element: <img> if avatar_url exists, amber initials circle otherwise.
  * Guards against empty display_name with '?' fallback.
  * @param {{ display_name: string|null, avatar_url: string|null }} profile

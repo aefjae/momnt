@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Log in to Mixmomnt</title>
+  <meta name="description" content="Log in to your Mixmomnt account." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/app.css" />
+  <style>
+    .auth-wrap {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 16px 32px;
+    }
+    .auth-heading {
+      margin-bottom: 28px;
+      font-size: 1.65rem;
+    }
+    .forgot-link {
+      display: block;
+      text-align: right;
+      font-size: 0.8rem;
+      color: var(--text-3);
+      margin-top: -10px;
+      margin-bottom: 18px;
+    }
+    .forgot-link:hover { color: var(--amber); }
+    .form-footer {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-2);
+    }
+    .form-footer a {
+      color: var(--amber);
+      font-weight: 600;
+    }
+    .form-footer a:hover { color: var(--amber-h); }
+    /* Reserve error space to prevent layout shift */
+    .form-error { min-height: 1em; }
+    .form-global-error {
+      font-size: 0.85rem;
+      color: var(--error);
+      min-height: 1.2em;
+      margin-bottom: 12px;
+      display: none;
+    }
+    .form-global-error.show { display: block; }
+  </style>
+</head>
+<body class="page-loading">
+
+  <nav class="app-nav">
+    <a href="/" class="nav-logo">mix<em>momnt</em></a>
+  </nav>
+
+  <main class="auth-wrap">
+    <div class="form-card">
+      <h1 class="auth-heading">Welcome back</h1>
+
+      <div id="global-error" class="form-global-error" role="alert"></div>
+
+      <form id="login-form" novalidate>
+        <div class="form-field">
+          <label class="form-label" for="email">Email</label>
+          <input
+            class="form-input"
+            type="email"
+            id="email"
+            name="email"
+            autocomplete="email"
+            placeholder="you@example.com"
+            required
+          />
+          <span class="form-error" id="email-error" role="alert"></span>
+        </div>
+
+        <div class="form-field">
+          <label class="form-label" for="password">Password</label>
+          <input
+            class="form-input"
+            type="password"
+            id="password"
+            name="password"
+            autocomplete="current-password"
+            placeholder="Your password"
+            required
+          />
+          <span class="form-error" id="password-error" role="alert"></span>
+        </div>
+
+        <a href="/forgot-password.html" class="forgot-link">Forgot password?</a>
+
+        <button type="submit" class="btn-primary" id="submit-btn">
+          Log in
+        </button>
+      </form>
+
+      <p class="form-footer">
+        New here? <a href="/signup.html">Create an account</a>
+      </p>
+    </div>
+  </main>
+
+  <script type="module" src="/js/login.js"></script>
+</body>
+</html>
