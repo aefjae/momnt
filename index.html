@@ -72,7 +72,7 @@
       max-width: 1100px; margin: 0 auto;
       padding: 108px 24px 72px;
       display: grid; grid-template-columns: 1fr 1fr;
-      gap: 56px; align-items: start;
+      gap: 56px; align-items: center;
     }
     @media (max-width: 780px) {
       .hero-wrap { grid-template-columns: 1fr; gap: 40px; padding: 88px 20px 56px; }
@@ -134,10 +134,55 @@
     .stat-l { font-size: .72rem; color: var(--text-3); margin-top: 1px; }
 
     /* ── App post cards (hero right) ── */
-    .post-stack { display: flex; flex-direction: column; gap: 10px; }
+    .hero-right { position: relative; }
+    .hero-right::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 80px;
+      background: linear-gradient(transparent, var(--bg));
+      pointer-events: none; border-radius: 0 0 14px 14px;
+      transition: opacity 300ms;
+    }
+    .hero-right:hover::after { opacity: 0.4; }
+
+    .feed-hint {
+      position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%);
+      display: flex; align-items: center; gap: 6px;
+      font-size: .72rem; color: var(--text-2);
+      background: rgba(22,22,22,.88); backdrop-filter: blur(10px);
+      border: 1px solid var(--border); border-radius: 100px;
+      padding: 6px 14px; z-index: 10; pointer-events: none;
+      white-space: nowrap;
+      transition: opacity 400ms ease;
+    }
+    .feed-hint.hide { opacity: 0; }
+    .feed-hint-arrow {
+      display: flex; align-items: center;
+      color: var(--amber);
+      animation: bounce-down 1.4s ease infinite;
+    }
+    @keyframes bounce-down {
+      0%, 100% { transform: translateY(0); }
+      55% { transform: translateY(4px); }
+    }
+
+    .post-stack {
+      display: flex; flex-direction: column; gap: 10px;
+      height: 480px;
+      overflow-y: auto;
+      padding-right: 4px;
+      scroll-snap-type: y proximity;
+      scrollbar-width: none;
+    }
+    .post-stack:hover {
+      scrollbar-width: thin;
+      scrollbar-color: var(--border) transparent;
+    }
+    .post-stack::-webkit-scrollbar { width: 3px; }
+    .post-stack::-webkit-scrollbar-track { background: transparent; }
+    .post-stack::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 
     .post-card {
       background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden;
+      scroll-snap-align: start; flex-shrink: 0;
     }
     .post-header {
       display: flex; align-items: center; gap: 10px;
@@ -156,22 +201,13 @@
     .post-role { font-size: .72rem; color: var(--text-3); }
     .post-time { font-size: .7rem; color: var(--text-3); flex-shrink: 0; }
 
-    /* photo placeholder */
+    /* photo */
     .post-photo {
-      width: 100%; aspect-ratio: 16/7; object-fit: cover;
-      display: flex; align-items: center; justify-content: center;
-      font-size: .72rem; color: var(--text-3); letter-spacing: .06em;
+      width: 100%; aspect-ratio: 16/7; object-fit: cover; display: block;
+      border-bottom: 1px solid var(--border-s);
     }
-    .post-photo-bg1 { background: linear-gradient(135deg, #1a1510 0%, #2a1f0a 50%, #1a1510 100%); }
-    .post-photo-bg2 { background: linear-gradient(135deg, #0e1420 0%, #0f1e35 50%, #0e1420 100%); }
-    .post-photo-bg3 { background: linear-gradient(135deg, #111118 0%, #1a1a2a 50%, #111118 100%); }
-    .post-photo-label {
-      text-align: center; line-height: 1.6;
-      font-size: .72rem; color: var(--text-3); letter-spacing: .04em;
-    }
-    .post-photo-icon { margin-bottom: 6px; opacity: .3; }
 
-    .post-body { padding: 12px 14px 0; }
+    .post-body { padding: 12px 14px 14px; }
     .post-caption { font-size: .86rem; color: var(--text-2); line-height: 1.55; margin-bottom: 12px; }
     .post-caption strong { color: var(--text); font-weight: 500; }
 
@@ -335,6 +371,65 @@
     .rd3 { transition-delay: 210ms; }
 
     @media (max-width: 480px) { .btn-ghost { display:none; } .form-row { flex-direction:column; } .btn-join { width:100%; } }
+
+    /* ── Craft metadata row ── */
+    .craft-meta {
+      display: flex; align-items: center; gap: 6px;
+      font-size: .67rem; color: var(--text-3);
+      padding-bottom: 10px; flex-wrap: wrap;
+    }
+    .cm-dot { color: var(--border); }
+
+    /* ── Craft comment thread ── */
+    .post-thread {
+      border-top: 1px solid var(--border-s);
+      padding: 8px 0 4px;
+      display: flex; flex-direction: column; gap: 5px;
+      margin-bottom: 6px;
+    }
+    .thread-comment {
+      font-size: .75rem; line-height: 1.45;
+      display: flex; gap: 6px; align-items: baseline;
+    }
+    .tc-user { color: var(--amber); font-weight: 600; white-space: nowrap; font-size: .69rem; }
+    .tc-text { color: var(--text-2); }
+
+    /* ── Waveform as hero visual (the differentiator) ── */
+    .hero-wf-wrap {
+      position: relative;
+      background: var(--elevated);
+      border-bottom: 1px solid var(--border-s);
+      padding: 18px 14px 12px;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .hero-wf-bars {
+      display: flex; align-items: center; gap: 2px;
+      height: 62px; width: 100%;
+    }
+    .hwf-bar { flex: 1; border-radius: 2px; background: var(--border); min-width: 1.5px; }
+    .hwf-bar.p { background: var(--amber); }
+    .hero-play-btn {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      width: 42px; height: 42px; border-radius: 50%;
+      background: var(--amber); border: none;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 0 0 8px rgba(245,158,11,.12);
+      transition: background 150ms, box-shadow 150ms;
+    }
+    .hero-play-btn:hover { background: var(--amber-h); box-shadow: 0 0 0 14px rgba(245,158,11,.16); }
+    .wf-timestamps {
+      display: flex; justify-content: space-between;
+      font-size: .64rem; color: var(--text-3); letter-spacing: .02em;
+    }
+
+    /* ── No-face badge ── */
+    .anon-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: .68rem; color: var(--text-3);
+      background: rgba(245,158,11,.04); border: 1px solid rgba(245,158,11,.14);
+      border-radius: 100px; padding: 3px 10px; margin-bottom: 10px;
+    }
+    .anon-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--amber); flex-shrink: 0; }
   </style>
 </head>
 <body>
@@ -376,17 +471,23 @@
     </div>
 
     <div class="hero-stats">
-      <div><div class="stat-n">2,<em>400</em>+</div><div class="stat-l">on waitlist</div></div>
+      <div><div class="stat-n"><em>Free</em></div><div class="stat-l">early access</div></div>
       <div><div class="stat-n"><em>4</em> roles</div><div class="stat-l">supported</div></div>
       <div><div class="stat-n">MP3<em>/</em>WAV</div><div class="stat-l">or photo-only</div></div>
     </div>
   </div>
 
-  <!-- App preview: 3 different post types -->
+  <!-- App preview -->
   <div class="hero-right" aria-label="App UI preview" role="img">
-    <div class="post-stack">
+    <div class="feed-hint" id="feedHint" aria-hidden="true">
+      scroll to explore
+      <span class="feed-hint-arrow">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </span>
+    </div>
+    <div class="post-stack" id="postStack">
 
-      <!-- Post 1: Engineer sharing mix moment — photo + audio -->
+      <!-- Card 1: Photo + waveform + caption -->
       <div class="post-card">
         <div class="post-header">
           <div class="avi avi-am" aria-hidden="true">TK</div>
@@ -396,16 +497,8 @@
           </div>
           <span class="post-time">6m ago</span>
         </div>
-        <div class="post-photo post-photo-bg1">
-          <div class="post-photo-label">
-            <div class="post-photo-icon" aria-hidden="true">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-            </div>
-            mixing desk · studio b
-          </div>
-        </div>
+        <img class="post-photo" src="https://picsum.photos/seed/mixdesk/800/280" alt="Mixing desk in Studio B" loading="lazy" />
         <div class="post-body">
-          <p class="post-caption">that <strong>2:14 transition</strong> when everything locked in. spent 3 hours on that 8 bars. worth it.</p>
           <div class="mini-player">
             <button class="play-btn" aria-label="Play clip" onclick="togglePlay(this)">
               <svg width="11" height="12" viewBox="0 0 24 24" fill="#000" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
@@ -416,11 +509,7 @@
             </div>
             <span class="player-dur">0:08</span>
           </div>
-        </div>
-        <div class="post-tags">
-          <span class="ptag ptag-am">#mixmoment</span>
-          <span class="ptag">#transition</span>
-          <span class="ptag">#engineer</span>
+          <p class="post-caption">that <strong>2:14 transition</strong> when everything locked in. spent 3 hours on 8 bars. worth it.</p>
         </div>
         <div class="post-actions">
           <button class="pact on" aria-label="47 plays">
@@ -432,7 +521,7 @@
         </div>
       </div>
 
-      <!-- Post 2: Musician — stage photo, solo audio -->
+      <!-- Card 2: Waveform only + caption — the differentiator -->
       <div class="post-card">
         <div class="post-header">
           <div class="avi avi-bl" aria-hidden="true">LR</div>
@@ -442,31 +531,15 @@
           </div>
           <span class="post-time">24m ago</span>
         </div>
-        <div class="post-photo post-photo-bg2">
-          <div class="post-photo-label">
-            <div class="post-photo-icon" aria-hidden="true">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-            </div>
-            stage · saturday night
-          </div>
+        <div class="hero-wf-wrap">
+          <div class="hero-wf-bars" id="hwf2"></div>
+          <button class="hero-play-btn" aria-label="Play solo" onclick="toggleHeroPlay(this)">
+            <svg width="13" height="15" viewBox="0 0 24 24" fill="#000" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </button>
+          <div class="wf-timestamps"><span>0:00</span><span>0:24</span></div>
         </div>
         <div class="post-body">
           <p class="post-caption">my <strong>solo from the second set</strong> last night. the crowd went quiet right here. this is the take.</p>
-          <div class="mini-player">
-            <button class="play-btn" aria-label="Play solo" onclick="togglePlay(this)">
-              <svg width="11" height="12" viewBox="0 0 24 24" fill="#000" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-            </button>
-            <div class="player-info">
-              <div class="player-file">solo_set2_live.mp3</div>
-              <div class="mini-wf" id="wf2"></div>
-            </div>
-            <span class="player-dur">0:24</span>
-          </div>
-        </div>
-        <div class="post-tags">
-          <span class="ptag ptag-am">#livemoment</span>
-          <span class="ptag">#guitar</span>
-          <span class="ptag">#solo</span>
         </div>
         <div class="post-actions">
           <button class="pact on" aria-label="83 plays">
@@ -478,7 +551,7 @@
         </div>
       </div>
 
-      <!-- Post 3: Producer — photo only, no audio, cover -->
+      <!-- Card 3: Just a photo + caption — no audio needed -->
       <div class="post-card">
         <div class="post-header">
           <div class="avi avi-wh" aria-hidden="true">AN</div>
@@ -486,32 +559,18 @@
             <div class="post-name">A. Nkosi</div>
             <div class="post-role">Producer · Johannesburg</div>
           </div>
-          <span class="post-time">1h ago</span>
+          <span class="post-time">3h ago</span>
         </div>
-        <div class="post-body" style="padding-top:14px;">
-          <p class="post-caption">been sitting on this cover for 6 months. finally posting it. <strong>no face, just the music.</strong> that's what this place is for.</p>
-          <div class="mini-player">
-            <button class="play-btn" aria-label="Play cover" onclick="togglePlay(this)">
-              <svg width="11" height="12" viewBox="0 0 24 24" fill="#000" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-            </button>
-            <div class="player-info">
-              <div class="player-file">cover_redbone_acoustic.mp3</div>
-              <div class="mini-wf" id="wf3"></div>
-            </div>
-            <span class="player-dur">1:12</span>
-          </div>
-        </div>
-        <div class="post-tags">
-          <span class="ptag ptag-am">#cover</span>
-          <span class="ptag">#noface</span>
-          <span class="ptag">#acoustic</span>
+        <img class="post-photo" src="https://picsum.photos/seed/studio-dark/800/280" alt="Late night session" loading="lazy" />
+        <div class="post-body">
+          <p class="post-caption">3am and the session is still going. <strong>some nights you don't need to share the sound.</strong> just the feeling.</p>
         </div>
         <div class="post-actions">
-          <button class="pact on" aria-label="124 plays">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg> 124
+          <button class="pact on" aria-label="62 plays">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg> 62
           </button>
-          <button class="pact" aria-label="31 comments">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> 31
+          <button class="pact" aria-label="14 comments">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> 14
           </button>
         </div>
       </div>
@@ -647,9 +706,9 @@
 </section>
 
 <!-- ── Proof ── -->
-<div class="proof-section" role="region" aria-label="Waitlist count">
-  <p class="proof-num">2,<em>400</em>+</p>
-  <p class="proof-lbl">sound creators already on the waitlist</p>
+<div class="proof-section" role="region" aria-label="Early access">
+  <p class="proof-num">Be <em>first.</em></p>
+  <p class="proof-lbl">Early access opens before public launch — join now, get in before everyone else</p>
   <div class="ticker-wrap" aria-hidden="true">
     <div class="ticker-track" id="ticker"></div>
   </div>
@@ -659,7 +718,7 @@
 <div class="cta-sec" role="region" aria-label="Join waitlist">
   <div class="cta-form-wrap rev">
     <h2 class="cta-title">Your moment<br/>is waiting to be <em>heard.</em></h2>
-    <p class="cta-body">Join thousands of sound creators getting early access to Mixmomnt.</p>
+    <p class="cta-body">Be a founding member. Get early access before public launch and help shape what Mixmomnt becomes.</p>
 
     <div class="form-wrap" id="ctaWrap">
       <div class="form-row">
@@ -682,7 +741,7 @@
 <footer>
   <div class="ft">
     <span class="ft-logo">Mix<em>momnt</em></span>
-    <p class="ft-copy">© 2025 Mixmomnt. All rights reserved.</p>
+    <p class="ft-copy">© 2026 Mixmomnt · Built by sound creators, for sound creators.</p>
     <nav class="ft-links" aria-label="Footer links">
       <a href="#">Privacy</a>
       <a href="#">Terms</a>
@@ -708,11 +767,35 @@
     el.appendChild(f);
   }
   buildWf('wf1', 0.35);
-  buildWf('wf2', 0);
-  buildWf('wf3', 0);
+
+  /* hero waveform (bigger, more bars) */
+  function buildHeroWf(id, playedPct) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const hs = [22,36,50,34,58,44,30,56,42,28,52,60,46,38,62,40,24,54,58,44,32,60,48,36,62,46,40,56,42,26,54,60,44,38,56,40,22,52,62,46,30,58,50,36,60,44,38,54,42,26,56,62,46,38,58,40,22,50,60,46,34,56,48,38];
+    const played = Math.floor(hs.length * playedPct);
+    const f = document.createDocumentFragment();
+    hs.forEach((h, i) => {
+      const b = document.createElement('div');
+      b.className = 'hwf-bar' + (i < played ? ' p' : '');
+      b.style.height = h + 'px';
+      f.appendChild(b);
+    });
+    el.appendChild(f);
+  }
+  buildHeroWf('hwf2', 0);
 
   /* toggle play button */
   function togglePlay(btn) {
+    const svg = btn.querySelector('svg');
+    const playing = btn.dataset.p === '1';
+    svg.innerHTML = playing
+      ? '<polygon points="5 3 19 12 5 21 5 3"/>'
+      : '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
+    btn.dataset.p = playing ? '0' : '1';
+  }
+
+  function toggleHeroPlay(btn) {
     const svg = btn.querySelector('svg');
     const playing = btn.dataset.p === '1';
     svg.innerHTML = playing
@@ -772,6 +855,17 @@
 
   document.getElementById('hero-email').addEventListener('keydown', e=>{ if(e.key==='Enter') handleSubmit('hero'); });
   document.getElementById('cta-email').addEventListener('keydown',  e=>{ if(e.key==='Enter') handleSubmit('cta');  });
+
+  /* hide feed hint on first scroll */
+  (function(){
+    const stack = document.getElementById('postStack');
+    const hint  = document.getElementById('feedHint');
+    if (!stack || !hint) return;
+    stack.addEventListener('scroll', function onScroll() {
+      hint.classList.add('hide');
+      stack.removeEventListener('scroll', onScroll);
+    }, { passive: true });
+  })();
 
   /* reveal */
   (function(){
