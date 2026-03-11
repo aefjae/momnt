@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="45%" r="55%">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#0d0d0d" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#0d0d0d"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+
+  <!-- Border -->
+  <rect x="1" y="1" width="1198" height="628" fill="none" stroke="#1e1e1e" stroke-width="2"/>
+
+  <!-- Eyebrow -->
+  <text x="600" y="210" text-anchor="middle"
+    font-family="Arial, sans-serif" font-size="14" font-weight="700"
+    letter-spacing="5" fill="#f59e0b">FOR SOUND CREATORS</text>
+
+  <!-- Wordmark -->
+  <text x="600" y="305" text-anchor="middle"
+    font-family="Arial Black, Arial, sans-serif" font-size="100" font-weight="900"
+    letter-spacing="-2" fill="#edebe8">Mix<tspan fill="#f59e0b">momnt</tspan></text>
+
+  <!-- Tagline -->
+  <text x="600" y="360" text-anchor="middle"
+    font-family="Arial, sans-serif" font-size="24" font-weight="400"
+    fill="#a09b94" letter-spacing="0.3">Your moment. Your sound. No face needed.</text>
+
+  <!-- Waveform bars — amber played portion, muted rest, anchored at y=530 -->
+  <!-- bar width: 10px, gap: 6px, 75 bars, starts at x=75 -->
+  <rect x="75"  y="446" width="10" height="84"  rx="2" fill="#f59e0b"/>
+  <rect x="91"  y="410" width="10" height="120" rx="2" fill="#f59e0b"/>
+  <rect x="107" y="432" width="10" height="98"  rx="2" fill="#f59e0b"/>
+  <rect x="123" y="388" width="10" height="142" rx="2" fill="#f59e0b"/>
+  <rect x="139" y="420" width="10" height="110" rx="2" fill="#f59e0b"/>
+  <rect x="155" y="398" width="10" height="132" rx="2" fill="#f59e0b"/>
+  <rect x="171" y="448" width="10" height="82"  rx="2" fill="#f59e0b"/>
+  <rect x="187" y="406" width="10" height="124" rx="2" fill="#f59e0b"/>
+  <rect x="203" y="376" width="10" height="154" rx="2" fill="#f59e0b"/>
+  <rect x="219" y="418" width="10" height="112" rx="2" fill="#f59e0b"/>
+  <rect x="235" y="394" width="10" height="136" rx="2" fill="#f59e0b"/>
+  <rect x="251" y="442" width="10" height="88"  rx="2" fill="#f59e0b"/>
+  <rect x="267" y="404" width="10" height="126" rx="2" fill="#f59e0b"/>
+  <rect x="283" y="370" width="10" height="160" rx="2" fill="#f59e0b"/>
+  <rect x="299" y="416" width="10" height="114" rx="2" fill="#f59e0b"/>
+  <rect x="315" y="392" width="10" height="138" rx="2" fill="#f59e0b"/>
+  <rect x="331" y="444" width="10" height="86"  rx="2" fill="#f59e0b"/>
+  <rect x="347" y="408" width="10" height="122" rx="2" fill="#f59e0b"/>
+  <rect x="363" y="378" width="10" height="152" rx="2" fill="#f59e0b"/>
+  <rect x="379" y="420" width="10" height="110" rx="2" fill="#f59e0b"/>
+  <rect x="395" y="396" width="10" height="134" rx="2" fill="#f59e0b"/>
+  <!-- playhead at ~28% -->
+  <rect x="411" y="440" width="10" height="90"  rx="2" fill="#2a2a2a"/>
+  <rect x="427" y="402" width="10" height="128" rx="2" fill="#2a2a2a"/>
+  <rect x="443" y="374" width="10" height="156" rx="2" fill="#2a2a2a"/>
+  <rect x="459" y="414" width="10" height="116" rx="2" fill="#2a2a2a"/>
+  <rect x="475" y="390" width="10" height="140" rx="2" fill="#2a2a2a"/>
+  <rect x="491" y="444" width="10" height="86"  rx="2" fill="#2a2a2a"/>
+  <rect x="507" y="406" width="10" height="124" rx="2" fill="#2a2a2a"/>
+  <rect x="523" y="372" width="10" height="158" rx="2" fill="#2a2a2a"/>
+  <rect x="539" y="418" width="10" height="112" rx="2" fill="#2a2a2a"/>
+  <rect x="555" y="394" width="10" height="136" rx="2" fill="#2a2a2a"/>
+  <rect x="571" y="448" width="10" height="82"  rx="2" fill="#2a2a2a"/>
+  <rect x="587" y="408" width="10" height="122" rx="2" fill="#2a2a2a"/>
+  <rect x="603" y="376" width="10" height="154" rx="2" fill="#2a2a2a"/>
+  <rect x="619" y="420" width="10" height="110" rx="2" fill="#2a2a2a"/>
+  <rect x="635" y="396" width="10" height="134" rx="2" fill="#2a2a2a"/>
+  <rect x="651" y="444" width="10" height="86"  rx="2" fill="#2a2a2a"/>
+  <rect x="667" y="404" width="10" height="126" rx="2" fill="#2a2a2a"/>
+  <rect x="683" y="380" width="10" height="150" rx="2" fill="#2a2a2a"/>
+  <rect x="699" y="416" width="10" height="114" rx="2" fill="#2a2a2a"/>
+  <rect x="715" y="392" width="10" height="138" rx="2" fill="#2a2a2a"/>
+  <rect x="731" y="446" width="10" height="84"  rx="2" fill="#2a2a2a"/>
+  <rect x="747" y="406" width="10" height="124" rx="2" fill="#2a2a2a"/>
+  <rect x="763" y="374" width="10" height="156" rx="2" fill="#2a2a2a"/>
+  <rect x="779" y="418" width="10" height="112" rx="2" fill="#2a2a2a"/>
+  <rect x="795" y="394" width="10" height="136" rx="2" fill="#2a2a2a"/>
+  <rect x="811" y="442" width="10" height="88"  rx="2" fill="#2a2a2a"/>
+  <rect x="827" y="402" width="10" height="128" rx="2" fill="#2a2a2a"/>
+  <rect x="843" y="370" width="10" height="160" rx="2" fill="#2a2a2a"/>
+  <rect x="859" y="416" width="10" height="114" rx="2" fill="#2a2a2a"/>
+  <rect x="875" y="390" width="10" height="140" rx="2" fill="#2a2a2a"/>
+  <rect x="891" y="444" width="10" height="86"  rx="2" fill="#2a2a2a"/>
+  <rect x="907" y="408" width="10" height="122" rx="2" fill="#2a2a2a"/>
+  <rect x="923" y="378" width="10" height="152" rx="2" fill="#2a2a2a"/>
+  <rect x="939" y="420" width="10" height="110" rx="2" fill="#2a2a2a"/>
+  <rect x="955" y="394" width="10" height="136" rx="2" fill="#2a2a2a"/>
+  <rect x="971" y="448" width="10" height="82"  rx="2" fill="#2a2a2a"/>
+  <rect x="987" y="406" width="10" height="124" rx="2" fill="#2a2a2a"/>
+  <rect x="1003" y="374" width="10" height="156" rx="2" fill="#2a2a2a"/>
+  <rect x="1019" y="418" width="10" height="112" rx="2" fill="#2a2a2a"/>
+  <rect x="1035" y="392" width="10" height="138" rx="2" fill="#2a2a2a"/>
+  <rect x="1051" y="446" width="10" height="84"  rx="2" fill="#2a2a2a"/>
+  <rect x="1067" y="406" width="10" height="124" rx="2" fill="#2a2a2a"/>
+  <rect x="1083" y="380" width="10" height="150" rx="2" fill="#2a2a2a"/>
+  <rect x="1099" y="422" width="10" height="108" rx="2" fill="#2a2a2a"/>
+  <rect x="1115" y="448" width="10" height="82"  rx="2" fill="#2a2a2a"/>
+
+  <!-- URL -->
+  <text x="600" y="608" text-anchor="middle"
+    font-family="Arial, sans-serif" font-size="16" font-weight="400"
+    fill="#555050" letter-spacing="2">mixmomnt.com</text>
+</svg>
