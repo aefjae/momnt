@@ -860,10 +860,24 @@
       return;
     }
     btn.disabled = true; btn.textContent = 'Joining…';
-    setTimeout(()=>{
-      document.getElementById(wId).classList.add('hide');
-      document.getElementById(sId).classList.add('show');
-    }, 700);
+    fetch('https://formspree.io/f/xykneroe', {
+      method: 'POST',
+      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: inp.value })
+    })
+    .then(r => {
+      if (r.ok) {
+        document.getElementById(wId).classList.add('hide');
+        document.getElementById(sId).classList.add('show');
+      } else {
+        btn.disabled = false; btn.textContent = 'Get Early Access';
+        inp.style.borderColor = 'rgba(239,68,68,.55)';
+        setTimeout(()=>{ inp.style.borderColor=''; }, 2000);
+      }
+    })
+    .catch(()=>{
+      btn.disabled = false; btn.textContent = 'Get Early Access';
+    });
   }
 
   document.getElementById('hero-email').addEventListener('keydown', e=>{ if(e.key==='Enter') handleSubmit('hero'); });
