@@ -3,19 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mixmomnt — Share Your Sound Moments</title>
-  <meta name="description" content="A social platform for musicians, producers, engineers and sound creatives to share audio moments — a photo, a caption, and the sound. No face required." />
+  <title>Mixmomnt — For the people behind the music.</title>
+  <meta name="description" content="A platform for sound engineers, musicians, and producers to share the sessions, moments, and craft behind the music." />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
   <!-- Open Graph / Social sharing -->
   <meta property="og:type"        content="website" />
   <meta property="og:url"         content="https://mixmomnt.com/" />
-  <meta property="og:title"       content="Mixmomnt — Share Your Sound Moments" />
-  <meta property="og:description" content="A social platform for musicians, producers, engineers and sound creatives to share audio moments. No face required." />
+  <meta property="og:title"       content="Mixmomnt — For the people behind the music." />
+  <meta property="og:description" content="A platform for sound engineers, musicians, and producers to share the sessions, moments, and craft behind the music." />
   <meta property="og:image"       content="https://mixmomnt.com/og-image.svg" />
   <meta name="twitter:card"       content="summary_large_image" />
-  <meta name="twitter:title"      content="Mixmomnt — Share Your Sound Moments" />
-  <meta name="twitter:description" content="A social platform for musicians, producers, engineers and sound creatives to share audio moments. No face required." />
+  <meta name="twitter:title"      content="Mixmomnt — For the people behind the music." />
+  <meta name="twitter:description" content="A platform for sound engineers, musicians, and producers to share the sessions, moments, and craft behind the music." />
   <meta name="twitter:image"      content="https://mixmomnt.com/og-image.svg" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -376,6 +376,14 @@
     .ft-links a { font-size: .76rem; color: var(--text-3); transition: color 150ms; }
     .ft-links a:hover { color: var(--text-2); }
 
+    /* ── Platform comparison line ── */
+    .platform-compare {
+      font-family: 'Space Grotesk', monospace; font-size: .68rem; font-weight: 600;
+      letter-spacing: .08em; text-transform: uppercase;
+      color: var(--text-3); line-height: 1.6; margin-bottom: 28px;
+    }
+    .platform-compare em { color: var(--amber); font-style: normal; }
+
     /* ── Reveal ── */
     .rev { opacity:0; transform:translateY(14px); transition: opacity 480ms ease, transform 480ms ease; }
     .rev.in { opacity:1; transform:translateY(0); }
@@ -459,13 +467,9 @@
 <div class="hero-wrap">
   <div class="hero-left">
     <div class="hero-eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>Early access open</div>
-    <h1 class="hero-title">Your moment.<br/>Your sound.<br/><em>No face needed.</em></h1>
-    <p class="hero-body">
-      Mixmomnt is where sound creators share <strong>the moments that matter</strong> —
-      a photo, a caption, and the audio clip that made it real.
-      <strong>The mix section you loved. The solo you nailed. The beat you just made.</strong>
-      Audio is optional. Your identity is your sound.
-    </p>
+    <h1 class="hero-title">Instagram for the people<br/>behind the <em>music.</em></h1>
+    <p class="hero-body">Engineers, musicians, and producers — the people on the credits page who never get a platform. Until now.</p>
+    <p class="platform-compare">Instagram for the photo · YouTube for the video · Spotify for the song · <em>Mixmomnt</em> for the people who made it</p>
 
     <div class="form-wrap" id="heroWrap">
       <div class="form-row">
@@ -485,8 +489,8 @@
 
     <div class="hero-stats">
       <div><div class="stat-n"><em>Free</em></div><div class="stat-l">early access</div></div>
-      <div><div class="stat-n"><em>4</em> roles</div><div class="stat-l">supported</div></div>
-      <div><div class="stat-n">MP3<em>/</em>WAV</div><div class="stat-l">or photo-only</div></div>
+      <div><div class="stat-n"><em>3</em> roles</div><div class="stat-l">supported</div></div>
+      <div><div class="stat-n">MP3<em>/</em>WAV</div><div class="stat-l">encouraged</div></div>
     </div>
   </div>
 
@@ -599,8 +603,8 @@
   <div class="container">
     <div class="rev" style="margin-bottom:36px;">
       <span class="sec-eye">What You Can Share</span>
-      <h2 class="sec-title">A photo. A caption.<br/>And the sound — if you have it.</h2>
-      <p class="sec-body">Every post starts with a moment. Audio makes it deeper. But a photo and a story is enough.</p>
+      <h2 class="sec-title">A photo. A caption.<br/>And the sound.</h2>
+      <p class="sec-body">Audio is strongly encouraged — it's what separates a post from a moment. Start with a photo and caption. Add audio to make it real.</p>
     </div>
     <div class="grid3">
       <div class="feat-card rev rd1">
@@ -608,7 +612,7 @@
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
         </div>
         <h3>Photo + caption</h3>
-        <p>The baseline. A moment, a context, a story. Works on its own — no audio needed.</p>
+        <p>The baseline. A moment, a context, a story. Add audio to turn it into a moment.</p>
       </div>
       <div class="feat-card rev rd2">
         <div class="feat-icon" aria-hidden="true">
@@ -640,34 +644,26 @@
     <div class="grid2">
       <div class="who-card rev rd1">
         <p class="who-role-lbl">Sound Engineer</p>
-        <h3>Share the mix part you loved</h3>
-        <p>That 8-bar transition. The EQ move that changed everything. The version your client didn't pick. Post the moment, not the whole session.</p>
+        <h3>Share the session, not just the mix.</h3>
+        <p>The console photo nobody posts. The gain structure you spent two hours on. The room that made everything click. This is where that lives.</p>
         <ul class="tags-row" aria-label="Examples">
           <li class="tg">Mix snippets</li><li class="tg">A/B comparisons</li><li class="tg">FX moments</li>
         </ul>
       </div>
       <div class="who-card rev rd2">
         <p class="who-role-lbl">Musician</p>
-        <h3>Share your solo from the stage</h3>
-        <p>The live take, the crowd moment, the improvised section nobody recorded properly except you. Clip it, caption it, post it.</p>
+        <h3>The take that actually happened.</h3>
+        <p>Not the polished release. The solo from the second set. The 3am rehearsal that finally felt right. The moment before it becomes a product.</p>
         <ul class="tags-row" aria-label="Examples">
           <li class="tg">Live solos</li><li class="tg">Stage moments</li><li class="tg">Rehearsal takes</li>
         </ul>
       </div>
       <div class="who-card rev rd1">
         <p class="who-role-lbl">Producer</p>
-        <h3>Drop the beat you just made</h3>
-        <p>Not the finished track — the 32-bar idea that came together at 2am. Share the process, show the range, build in public.</p>
+        <h3>Show your work.</h3>
+        <p>The 32-bar idea at 4am. The sample you chopped for an hour. The beat that's not finished but already says something. Build in public.</p>
         <ul class="tags-row" aria-label="Examples">
           <li class="tg">WIP beats</li><li class="tg">Sample chops</li><li class="tg">Sketches</li>
-        </ul>
-      </div>
-      <div class="who-card rev rd2">
-        <p class="who-role-lbl">Sound Creative</p>
-        <h3>Post your cover. No face required.</h3>
-        <p>You've been sitting on that cover for months. Post it here without putting your face online. The sound speaks for itself.</p>
-        <ul class="tags-row" aria-label="Examples">
-          <li class="tg">Covers</li><li class="tg">Field recordings</li><li class="tg">Ambient textures</li>
         </ul>
       </div>
     </div>
@@ -707,7 +703,7 @@
       <div class="step-card rev rd2">
         <span class="step-pill">Step 02</span>
         <h3>Attach your audio</h3>
-        <p>Optionally drop an MP3 or WAV. A clip, a section, a full take — whatever makes the moment real.</p>
+        <p>Drop an MP3 or WAV. A clip, a section, a full take — audio is strongly encouraged. It's what makes the moment real.</p>
       </div>
       <div class="step-card rev rd3">
         <span class="step-pill">Step 03</span>
@@ -754,7 +750,7 @@
 <footer>
   <div class="ft">
     <span class="ft-logo">Mix<em>momnt</em></span>
-    <p class="ft-copy">© 2026 Mixmomnt · Built by sound creators, for sound creators.</p>
+    <p class="ft-copy">© 2026 Mixmomnt · Share the session, not just the song.</p>
     <nav class="ft-links" aria-label="Footer links">
       <a href="#">Privacy</a>
       <a href="#">Terms</a>
