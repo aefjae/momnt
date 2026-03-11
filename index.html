@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mixmomnt — Share Your Sound Moments</title>
+  <meta name="description" content="A social platform for musicians, producers, engineers and sound creatives to share audio moments — a photo, a caption, and the sound. No face required." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Righteous&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #0d0d0d;
+      --surface:  #161616;
+      --elevated: #1e1e1e;
+      --border:   #2a2a2a;
+      --border-s: #1e1e1e;
+      --amber:    #f59e0b;
+      --amber-h:  #fbbf24;
+      --blue:     #3b82f6;
+      --text:     #edebe8;
+      --text-2:   #a09b94;
+      --text-3:   #555050;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    h1,h2,h3 { font-family: 'Righteous', sans-serif; line-height: 1.1; letter-spacing: -0.01em; }
+    a { color: inherit; text-decoration: none; }
+    .sr-only { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    .divider { height: 1px; background: var(--border-s); max-width: 1100px; margin: 0 auto; }
+
+    /* ── Navbar ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: 56px; padding: 0 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(13,13,13,0.94);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-s);
+    }
+    .nav-logo { font-family: 'Righteous', sans-serif; font-size: 1.2rem; letter-spacing: .03em; }
+    .nav-logo em { color: var(--amber); font-style: normal; }
+    .nav-right { display: flex; align-items: center; gap: 10px; }
+    .btn-ghost {
+      font-family: 'Space Grotesk', sans-serif; font-size: .85rem; font-weight: 500;
+      color: var(--text-2); padding: 7px 14px; border-radius: 8px;
+      border: none; background: transparent; cursor: pointer;
+      transition: color 150ms, background 150ms;
+    }
+    .btn-ghost:hover { color: var(--text); background: var(--elevated); }
+    .btn-primary {
+      font-family: 'Space Grotesk', sans-serif; font-size: .85rem; font-weight: 700;
+      color: #000; background: var(--amber); padding: 8px 18px;
+      border-radius: 8px; border: none; cursor: pointer; transition: background 150ms;
+    }
+    .btn-primary:hover { background: var(--amber-h); }
+
+    /* ── Hero ── */
+    .hero-wrap {
+      max-width: 1100px; margin: 0 auto;
+      padding: 108px 24px 72px;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 56px; align-items: start;
+    }
+    @media (max-width: 780px) {
+      .hero-wrap { grid-template-columns: 1fr; gap: 40px; padding: 88px 20px 56px; }
+      .hero-right { order: -1; }
+    }
+
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-size: .72rem; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--amber); margin-bottom: 18px;
+    }
+    .eyebrow-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--amber); }
+
+    .hero-title { font-size: clamp(2.2rem, 4.5vw, 3.6rem); line-height: 1.06; margin-bottom: 18px; }
+    .hero-title em { color: var(--amber); font-style: normal; }
+
+    .hero-body { font-size: .97rem; color: var(--text-2); line-height: 1.72; max-width: 430px; margin-bottom: 28px; }
+    .hero-body strong { color: var(--text); font-weight: 500; }
+
+    /* waitlist form */
+    .form-row { display: flex; gap: 8px; margin-bottom: 12px; }
+    .input-email {
+      flex: 1; min-width: 0;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; color: var(--text);
+      font-family: 'Space Grotesk', sans-serif; font-size: .9rem;
+      padding: 11px 14px; outline: none;
+      transition: border-color 150ms, box-shadow 150ms;
+    }
+    .input-email::placeholder { color: var(--text-3); }
+    .input-email:focus { border-color: var(--amber); box-shadow: 0 0 0 3px rgba(245,158,11,.1); }
+    .btn-join {
+      font-family: 'Space Grotesk', sans-serif; font-size: .88rem; font-weight: 700;
+      color: #000; background: var(--amber); padding: 11px 20px;
+      border-radius: 8px; border: none; cursor: pointer; white-space: nowrap;
+      transition: background 150ms; flex-shrink: 0;
+    }
+    .btn-join:hover:not(:disabled) { background: var(--amber-h); }
+    .btn-join:disabled { opacity: .6; cursor: not-allowed; }
+    .form-hint { font-size: .76rem; color: var(--text-3); display: flex; align-items: center; gap: 5px; }
+    .form-wrap.hide .form-row,
+    .form-wrap.hide .form-hint { display: none; }
+    .success-msg {
+      display: none; align-items: center; gap: 10px;
+      padding: 12px 16px; background: var(--surface);
+      border: 1px solid var(--border); border-left: 3px solid var(--amber);
+      border-radius: 8px; font-size: .88rem;
+      animation: fadeup 300ms ease;
+    }
+    .success-msg.show { display: flex; }
+    @keyframes fadeup { from { opacity:0; transform:translateY(5px); } to { opacity:1; transform:translateY(0); } }
+
+    .hero-stats {
+      display: flex; gap: 24px; margin-top: 32px;
+      padding-top: 24px; border-top: 1px solid var(--border-s);
+    }
+    .stat-n { font-family: 'Righteous', sans-serif; font-size: 1.3rem; }
+    .stat-n em { color: var(--amber); font-style: normal; }
+    .stat-l { font-size: .72rem; color: var(--text-3); margin-top: 1px; }
+
+    /* ── App post cards (hero right) ── */
+    .post-stack { display: flex; flex-direction: column; gap: 10px; }
+
+    .post-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden;
+    }
+    .post-header {
+      display: flex; align-items: center; gap: 10px;
+      padding: 12px 14px; border-bottom: 1px solid var(--border-s);
+    }
+    .avi {
+      width: 34px; height: 34px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .7rem; font-weight: 700; flex-shrink: 0;
+    }
+    .avi-am { background: rgba(245,158,11,.14); color: var(--amber); }
+    .avi-bl { background: rgba(59,130,246,.14); color: var(--blue); }
+    .avi-wh { background: var(--elevated); color: var(--text-2); }
+    .post-user { flex: 1; min-width: 0; }
+    .post-name { font-size: .86rem; font-weight: 600; line-height: 1.2; }
+    .post-role { font-size: .72rem; color: var(--text-3); }
+    .post-time { font-size: .7rem; color: var(--text-3); flex-shrink: 0; }
+
+    /* photo placeholder */
+    .post-photo {
+      width: 100%; aspect-ratio: 16/7; object-fit: cover;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .72rem; color: var(--text-3); letter-spacing: .06em;
+    }
+    .post-photo-bg1 { background: linear-gradient(135deg, #1a1510 0%, #2a1f0a 50%, #1a1510 100%); }
+    .post-photo-bg2 { background: linear-gradient(135deg, #0e1420 0%, #0f1e35 50%, #0e1420 100%); }
+    .post-photo-bg3 { background: linear-gradient(135deg, #111118 0%, #1a1a2a 50%, #111118 100%); }
+    .post-photo-label {
+      text-align: center; line-height: 1.6;
+      font-size: .72rem; color: var(--text-3); letter-spacing: .04em;
+    }
+    .post-photo-icon { margin-bottom: 6px; opacity: .3; }
+
+    .post-body { padding: 12px 14px 0; }
+    .post-caption { font-size: .86rem; color: var(--text-2); line-height: 1.55; margin-bottom: 12px; }
+    .post-caption strong { color: var(--text); font-weight: 500; }
+
+    /* mini player */
+    .mini-player {
+      display: flex; align-items: center; gap: 10px;
+      background: var(--elevated); border-radius: 8px; padding: 10px 12px; margin-bottom: 12px;
+    }
+    .play-btn {
+      width: 30px; height: 30px; border-radius: 50%;
+      background: var(--amber); display: flex; align-items: center; justify-content: center;
+      border: none; cursor: pointer; flex-shrink: 0; transition: background 150ms;
+    }
+    .play-btn:hover { background: var(--amber-h); }
+    .player-info { flex: 1; min-width: 0; }
+    .player-file { font-size: .72rem; color: var(--text); font-weight: 500; margin-bottom: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .mini-wf { display: flex; align-items: center; gap: 2px; height: 22px; }
+    .mwf-bar { width: 2px; border-radius: 2px; background: var(--text-3); }
+    .mwf-bar.p { background: var(--amber); }
+    .player-dur { font-size: .7rem; color: var(--text-3); flex-shrink: 0; }
+
+    /* no-audio variant label */
+    .audio-optional {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: .7rem; color: var(--text-3); padding: 0 14px 10px;
+    }
+
+    .post-tags { display: flex; gap: 5px; flex-wrap: wrap; padding: 0 14px 12px; }
+    .ptag {
+      font-size: .7rem; padding: 3px 9px; border-radius: 100px;
+      background: var(--elevated); color: var(--text-3); border: 1px solid var(--border-s);
+    }
+    .ptag-am { background: rgba(245,158,11,.07); color: var(--amber); border-color: rgba(245,158,11,.18); }
+
+    .post-actions {
+      display: flex; gap: 16px; align-items: center;
+      padding: 10px 14px 12px; border-top: 1px solid var(--border-s);
+    }
+    .pact {
+      display: flex; align-items: center; gap: 5px;
+      font-size: .78rem; color: var(--text-3);
+      border: none; background: none; cursor: pointer;
+      font-family: 'Space Grotesk', sans-serif;
+      padding: 3px 6px; border-radius: 6px;
+      transition: color 150ms, background 150ms;
+    }
+    .pact:hover { color: var(--text-2); background: var(--elevated); }
+    .pact.on { color: var(--amber); }
+
+    /* ── Sections ── */
+    section.sec { padding: 72px 0; }
+    .sec-eye { font-size: .7rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--amber); display: block; margin-bottom: 10px; }
+    .sec-title { font-size: clamp(1.5rem, 3vw, 2.2rem); margin-bottom: 10px; }
+    .sec-body { font-size: .95rem; color: var(--text-2); max-width: 450px; line-height: 1.7; margin-bottom: 36px; }
+
+    /* 3-col grid */
+    .grid3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+    @media (max-width: 768px) { .grid3 { grid-template-columns: 1fr; } }
+
+    .feat-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 26px 22px; cursor: default;
+      transition: border-color 200ms;
+    }
+    .feat-card:hover { border-color: #363636; }
+    .feat-icon { width: 38px; height: 38px; border-radius: 9px; background: var(--elevated); display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
+    .feat-card h3 { font-size: .97rem; margin-bottom: 7px; }
+    .feat-card p { font-size: .86rem; color: var(--text-2); line-height: 1.65; }
+
+    /* 2-col grid */
+    .grid2 { display: grid; grid-template-columns: repeat(2,1fr); gap: 14px; }
+    @media (max-width: 640px) { .grid2 { grid-template-columns: 1fr; } }
+
+    .who-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 26px 22px; cursor: default;
+      transition: border-color 200ms;
+    }
+    .who-card:hover { border-color: #363636; }
+    .who-role-lbl { font-size: .68rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--amber); margin-bottom: 5px; }
+    .who-card h3 { font-size: 1.05rem; margin-bottom: 7px; }
+    .who-card p { font-size: .85rem; color: var(--text-2); line-height: 1.65; }
+    .tags-row { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 14px; }
+    .tg { font-size: .7rem; padding: 3px 9px; border-radius: 100px; background: var(--elevated); color: var(--text-3); border: 1px solid var(--border-s); }
+
+    /* steps */
+    .steps3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+    @media (max-width: 768px) { .steps3 { grid-template-columns: 1fr; } }
+    .step-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 26px 22px;
+    }
+    .step-pill {
+      display: inline-block; font-size: .68rem; font-weight: 700;
+      letter-spacing: .08em; text-transform: uppercase;
+      color: var(--amber); background: rgba(245,158,11,.07);
+      border: 1px solid rgba(245,158,11,.16); border-radius: 5px;
+      padding: 3px 9px; margin-bottom: 16px;
+    }
+    .step-card h3 { font-size: .97rem; margin-bottom: 7px; }
+    .step-card p { font-size: .86rem; color: var(--text-2); line-height: 1.65; }
+
+    /* ── Differentiator banner ── */
+    .diff-banner {
+      background: var(--surface);
+      border-top: 1px solid var(--border-s);
+      border-bottom: 1px solid var(--border-s);
+      padding: 52px 24px;
+    }
+    .diff-inner { max-width: 700px; margin: 0 auto; text-align: center; }
+    .diff-icon { margin: 0 auto 18px; width: 48px; height: 48px; border-radius: 50%; background: var(--elevated); display: flex; align-items: center; justify-content: center; }
+    .diff-title { font-size: clamp(1.5rem, 3vw, 2.2rem); margin-bottom: 12px; }
+    .diff-title em { color: var(--amber); font-style: normal; }
+    .diff-body { font-size: .97rem; color: var(--text-2); line-height: 1.7; max-width: 520px; margin: 0 auto; }
+    .diff-body strong { color: var(--text); font-weight: 500; }
+
+    /* ── Proof ── */
+    .proof-section { padding: 56px 24px; text-align: center; }
+    .proof-num { font-family: 'Righteous', sans-serif; font-size: clamp(2.8rem, 6vw, 5rem); line-height: 1; margin-bottom: 6px; }
+    .proof-num em { color: var(--amber); font-style: normal; }
+    .proof-lbl { font-size: .97rem; color: var(--text-2); margin-bottom: 36px; }
+
+    .ticker-wrap { overflow: hidden; mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent); }
+    .ticker-track { display: flex; gap: 9px; width: max-content; animation: tick 30s linear infinite; }
+    @keyframes tick { from { transform:translateX(0); } to { transform:translateX(-50%); } }
+    @media (prefers-reduced-motion: reduce) { .ticker-track { animation:none; } }
+    .tick-pill {
+      display: flex; align-items: center; gap: 7px;
+      background: var(--elevated); border: 1px solid var(--border);
+      border-radius: 100px; padding: 6px 12px 6px 6px; white-space: nowrap; flex-shrink: 0;
+    }
+    .tick-av { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: .62rem; font-weight: 700; }
+    .ta-am { background: rgba(245,158,11,.14); color: var(--amber); }
+    .ta-bl { background: rgba(59,130,246,.14); color: var(--blue); }
+    .ta-wh { background: var(--surface); color: var(--text-2); }
+    .tick-name { font-size: .8rem; font-weight: 500; }
+    .tick-role { font-size: .7rem; color: var(--text-3); }
+
+    /* ── CTA ── */
+    .cta-sec { padding: 88px 24px 96px; text-align: center; }
+    .cta-title { font-size: clamp(1.7rem, 3.5vw, 2.8rem); margin-bottom: 10px; }
+    .cta-title em { color: var(--amber); font-style: normal; }
+    .cta-body { font-size: .95rem; color: var(--text-2); max-width: 380px; margin: 0 auto 28px; line-height: 1.7; }
+    .cta-form-wrap { max-width: 420px; margin: 0 auto; }
+
+    /* ── Footer ── */
+    footer { border-top: 1px solid var(--border-s); padding: 22px 24px; }
+    .ft { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .ft-logo { font-family: 'Righteous', sans-serif; font-size: .97rem; }
+    .ft-logo em { color: var(--amber); font-style: normal; }
+    .ft-copy { font-size: .76rem; color: var(--text-3); }
+    .ft-links { display: flex; gap: 18px; }
+    .ft-links a { font-size: .76rem; color: var(--text-3); transition: color 150ms; }
+    .ft-links a:hover { color: var(--text-2); }
+
+    /* ── Reveal ── */
+    .rev { opacity:0; transform:translateY(14px); transition: opacity 480ms ease, transform 480ms ease; }
+    .rev.in { opacity:1; transform:translateY(0); }
+    .rd1 { transition-delay: 70ms; }
+    .rd2 { transition-delay: 140ms; }
+    .rd3 { transition-delay: 210ms; }
+
+    @media (max-width: 480px) { .btn-ghost { display:none; } .form-row { flex-direction:column; } .btn-join { width:100%; } }
+  </style>
+</head>
+<body>
+
+<nav role="navigation" aria-label="Main navigation">
+  <a href="#" class="nav-logo">Mix<em>momnt</em></a>
+  <div class="nav-right">
+    <button class="btn-ghost" onclick="focusEmail()">Sign in</button>
+    <button class="btn-primary" onclick="focusEmail()">Join Waitlist</button>
+  </div>
+</nav>
+
+<!-- ── Hero ── -->
+<div class="hero-wrap">
+  <div class="hero-left">
+    <div class="hero-eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>Early access open</div>
+    <h1 class="hero-title">Your moment.<br/>Your sound.<br/><em>No face needed.</em></h1>
+    <p class="hero-body">
+      Mixmomnt is where sound creators share <strong>the moments that matter</strong> —
+      a photo, a caption, and the audio clip that made it real.
+      <strong>The mix section you loved. The solo you nailed. The beat you just made.</strong>
+      Audio is optional. Your identity is your sound.
+    </p>
+
+    <div class="form-wrap" id="heroWrap">
+      <div class="form-row">
+        <label for="hero-email" class="sr-only">Email address</label>
+        <input class="input-email" id="hero-email" type="email" placeholder="your@email.com" required autocomplete="email" />
+        <button class="btn-join" id="heroBtn" onclick="handleSubmit('hero')">Get Early Access</button>
+      </div>
+      <p class="form-hint">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+        No spam. No credit card.
+      </p>
+    </div>
+    <div class="success-msg" id="heroSuccess" role="alert" aria-live="polite">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+      <div><strong>You're on the list.</strong><br/><span style="font-size:.82rem;color:var(--text-2)">We'll reach out when Mixmomnt drops.</span></div>
+    </div>
+
+    <div class="hero-stats">
+      <div><div class="stat-n">2,<em>400</em>+</div><div class="stat-l">on waitlist</div></div>
+      <div><div class="stat-n"><em>4</em> roles</div><div class="stat-l">supported</div></div>
+      <div><div class="stat-n">MP3<em>/</em>WAV</div><div class="stat-l">or photo-only</div></div>
+    </div>
+  </div>
+
+  <!-- App preview: 3 different post types -->
+  <div class="hero-right" aria-label="App UI preview" role="img">
+    <div class="post-stack">
+
+      <!-- Post 1: Engineer sharing mix moment — photo + audio -->
+      <div class="post-card">
+        <div class="post-header">
+          <div class="avi avi-am" aria-hidden="true">TK</div>
+          <div class="post-user">
+            <div class="post-name">Tom K.</div>
+            <div class="post-role">Sound Engineer · London</div>
+          </div>
+          <span class="post-time">6m ago</span>
+        </div>
+        <div class="post-photo post-photo-bg1">
+          <div class="post-photo-label">
+            <div class="post-photo-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            </div>
+            mixing desk · studio b
+          </div>
+        </div>
+        <div class="post-body">
+          <p class="post-caption">that <strong>2:14 transition</strong> when everything locked in. spent 3 hours on that 8 bars. worth it.</p>
+          <div class="mini-player">
+            <button class="play-btn" aria-label="Play clip" onclick="togglePlay(this)">
+              <svg width="11" height="12" viewBox="0 0 24 24" fill="#000" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            </button>
+            <div class="player-info">
+              <div class="player-file">mix_v7_section_bridge.wav</div>
+              <div class="mini-wf" id="wf1"></div>
+            </div>
+            <span class="player-dur">0:08</span>
+          </div>
+        </div>
+        <div class="post-tags">
+          <span class="ptag ptag-am">#mixmoment</span>
+          <span class="ptag">#transition</span>
+          <span class="ptag">#engineer</span>
+        </div>
+        <div class="post-actions">
+          <button class="pact on" aria-label="47 plays">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg> 47
+          </button>
+          <button class="pact" aria-label="11 comments">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> 11
+          </button>
+        </div>
+      </div>
+
+      <!-- Post 2: Musician — stage photo, solo audio -->
+      <div class="post-card">
+        <div class="post-header">
+          <div class="avi avi-bl" aria-hidden="true">LR</div>
+          <div class="post-user">
+            <div class="post-name">L. Rivera</div>
+            <div class="post-role">Guitarist · Miami</div>
+          </div>
+          <span class="post-time">24m ago</span>
+        </div>
+        <div class="post-photo post-photo-bg2">
+          <div class="post-photo-label">
+            <div class="post-photo-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            </div>
+            stage · saturday night
+          </div>
+        </div>
+        <div class="post-body">
+          <p class="post-caption">my <strong>solo from the second set</strong> last night. the crowd went quiet right here. this is the take.</p>
+          <div class="mini-player">
+            <button class="play-btn" aria-label="Play solo" onclick="togglePlay(this)">
+              <svg width="11" height="12" viewBox="0 0 24 24" fill="#000" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            </button>
+            <div class="player-info">
+              <div class="player-file">solo_set2_live.mp3</div>
+              <div class="mini-wf" id="wf2"></div>
+            </div>
+            <span class="player-dur">0:24</span>
+          </div>
+        </div>
+        <div class="post-tags">
+          <span class="ptag ptag-am">#livemoment</span>
+          <span class="ptag">#guitar</span>
+          <span class="ptag">#solo</span>
+        </div>
+        <div class="post-actions">
+          <button class="pact on" aria-label="83 plays">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg> 83
+          </button>
+          <button class="pact" aria-label="19 comments">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> 19
+          </button>
+        </div>
+      </div>
+
+      <!-- Post 3: Producer — photo only, no audio, cover -->
+      <div class="post-card">
+        <div class="post-header">
+          <div class="avi avi-wh" aria-hidden="true">AN</div>
+          <div class="post-user">
+            <div class="post-name">A. Nkosi</div>
+            <div class="post-role">Producer · Johannesburg</div>
+          </div>
+          <span class="post-time">1h ago</span>
+        </div>
+        <div class="post-body" style="padding-top:14px;">
+          <p class="post-caption">been sitting on this cover for 6 months. finally posting it. <strong>no face, just the music.</strong> that's what this place is for.</p>
+          <div class="mini-player">
+            <button class="play-btn" aria-label="Play cover" onclick="togglePlay(this)">
+              <svg width="11" height="12" viewBox="0 0 24 24" fill="#000" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            </button>
+            <div class="player-info">
+              <div class="player-file">cover_redbone_acoustic.mp3</div>
+              <div class="mini-wf" id="wf3"></div>
+            </div>
+            <span class="player-dur">1:12</span>
+          </div>
+        </div>
+        <div class="post-tags">
+          <span class="ptag ptag-am">#cover</span>
+          <span class="ptag">#noface</span>
+          <span class="ptag">#acoustic</span>
+        </div>
+        <div class="post-actions">
+          <button class="pact on" aria-label="124 plays">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg> 124
+          </button>
+          <button class="pact" aria-label="31 comments">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> 31
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ── What You Can Share ── -->
+<section class="sec" aria-label="What you can share">
+  <div class="container">
+    <div class="rev" style="margin-bottom:36px;">
+      <span class="sec-eye">What You Can Share</span>
+      <h2 class="sec-title">A photo. A caption.<br/>And the sound — if you have it.</h2>
+      <p class="sec-body">Every post starts with a moment. Audio makes it deeper. But a photo and a story is enough.</p>
+    </div>
+    <div class="grid3">
+      <div class="feat-card rev rd1">
+        <div class="feat-icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        </div>
+        <h3>Photo + caption</h3>
+        <p>The baseline. A moment, a context, a story. Works on its own — no audio needed.</p>
+      </div>
+      <div class="feat-card rev rd2">
+        <div class="feat-icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        </div>
+        <h3>+ Audio clip</h3>
+        <p>Attach an MP3 or WAV to bring the moment to life. The section, the solo, the take. Let people hear it.</p>
+      </div>
+      <div class="feat-card rev rd3">
+        <div class="feat-icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#a09b94" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></svg>
+        </div>
+        <h3>Audio only</h3>
+        <p>Skip the photo entirely. Just the sound. A voice memo, a rough beat, a texture — pure audio moment.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── Who It's For ── -->
+<section class="sec" aria-label="Who it's for">
+  <div class="container">
+    <div class="rev" style="margin-bottom:36px;">
+      <span class="sec-eye">Who It's For</span>
+      <h2 class="sec-title">Every creator who works with sound.</h2>
+    </div>
+    <div class="grid2">
+      <div class="who-card rev rd1">
+        <p class="who-role-lbl">Sound Engineer</p>
+        <h3>Share the mix part you loved</h3>
+        <p>That 8-bar transition. The EQ move that changed everything. The version your client didn't pick. Post the moment, not the whole session.</p>
+        <ul class="tags-row" aria-label="Examples">
+          <li class="tg">Mix snippets</li><li class="tg">A/B comparisons</li><li class="tg">FX moments</li>
+        </ul>
+      </div>
+      <div class="who-card rev rd2">
+        <p class="who-role-lbl">Musician</p>
+        <h3>Share your solo from the stage</h3>
+        <p>The live take, the crowd moment, the improvised section nobody recorded properly except you. Clip it, caption it, post it.</p>
+        <ul class="tags-row" aria-label="Examples">
+          <li class="tg">Live solos</li><li class="tg">Stage moments</li><li class="tg">Rehearsal takes</li>
+        </ul>
+      </div>
+      <div class="who-card rev rd1">
+        <p class="who-role-lbl">Producer</p>
+        <h3>Drop the beat you just made</h3>
+        <p>Not the finished track — the 32-bar idea that came together at 2am. Share the process, show the range, build in public.</p>
+        <ul class="tags-row" aria-label="Examples">
+          <li class="tg">WIP beats</li><li class="tg">Sample chops</li><li class="tg">Sketches</li>
+        </ul>
+      </div>
+      <div class="who-card rev rd2">
+        <p class="who-role-lbl">Sound Creative</p>
+        <h3>Post your cover. No face required.</h3>
+        <p>You've been sitting on that cover for months. Post it here without putting your face online. The sound speaks for itself.</p>
+        <ul class="tags-row" aria-label="Examples">
+          <li class="tg">Covers</li><li class="tg">Field recordings</li><li class="tg">Ambient textures</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── No Face Banner ── -->
+<div class="diff-banner" role="region" aria-label="No face needed">
+  <div class="diff-inner rev">
+    <div class="diff-icon" aria-hidden="true">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+    </div>
+    <h2 class="diff-title">Your identity is <em>your sound.</em></h2>
+    <p class="diff-body">
+      Mixmomnt doesn't ask you to perform for a camera.
+      <strong>No face, no followers game, no aesthetic pressure.</strong>
+      Just what you made, why it matters, and the people who get it.
+      Sound is identity enough.
+    </p>
+  </div>
+</div>
+
+<!-- ── How It Works ── -->
+<section class="sec" aria-label="How it works">
+  <div class="container">
+    <div class="rev" style="margin-bottom:36px;">
+      <span class="sec-eye">How It Works</span>
+      <h2 class="sec-title">Post in under a minute.</h2>
+      <p class="sec-body">No friction between the moment and sharing it.</p>
+    </div>
+    <div class="steps3">
+      <div class="step-card rev rd1">
+        <span class="step-pill">Step 01</span>
+        <h3>Capture the moment</h3>
+        <p>Add a photo and caption. Describe what happened, what you made, what it means.</p>
+      </div>
+      <div class="step-card rev rd2">
+        <span class="step-pill">Step 02</span>
+        <h3>Attach your audio</h3>
+        <p>Optionally drop an MP3 or WAV. A clip, a section, a full take — whatever makes the moment real.</p>
+      </div>
+      <div class="step-card rev rd3">
+        <span class="step-pill">Step 03</span>
+        <h3>Let the sound connect</h3>
+        <p>Your moment reaches people who work with sound. They listen, react, and build on what you shared.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Proof ── -->
+<div class="proof-section" role="region" aria-label="Waitlist count">
+  <p class="proof-num">2,<em>400</em>+</p>
+  <p class="proof-lbl">sound creators already on the waitlist</p>
+  <div class="ticker-wrap" aria-hidden="true">
+    <div class="ticker-track" id="ticker"></div>
+  </div>
+</div>
+
+<!-- ── Final CTA ── -->
+<div class="cta-sec" role="region" aria-label="Join waitlist">
+  <div class="cta-form-wrap rev">
+    <h2 class="cta-title">Your moment<br/>is waiting to be <em>heard.</em></h2>
+    <p class="cta-body">Join thousands of sound creators getting early access to Mixmomnt.</p>
+
+    <div class="form-wrap" id="ctaWrap">
+      <div class="form-row">
+        <label for="cta-email" class="sr-only">Email address</label>
+        <input class="input-email" id="cta-email" type="email" placeholder="your@email.com" required autocomplete="email" />
+        <button class="btn-join" id="ctaBtn" onclick="handleSubmit('cta')">Get Early Access</button>
+      </div>
+      <p class="form-hint" style="justify-content:center;">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+        No spam. No credit card.
+      </p>
+    </div>
+    <div class="success-msg" id="ctaSuccess" role="alert" aria-live="polite" style="max-width:300px;margin:0 auto;text-align:left;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+      <div><strong>You're on the list.</strong><br/><span style="font-size:.82rem;color:var(--text-2)">We'll reach out when Mixmomnt drops.</span></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="ft">
+    <span class="ft-logo">Mix<em>momnt</em></span>
+    <p class="ft-copy">© 2025 Mixmomnt. All rights reserved.</p>
+    <nav class="ft-links" aria-label="Footer links">
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+      <a href="mailto:hello@mixmomnt.com">Contact</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+  /* mini waveforms */
+  function buildWf(id, playedPct) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const hs = [7,13,19,24,20,16,26,22,14,20,24,17,11,20,26,22,18,14,22,26,20,14,10,16,24,20,16,22,18,12,20,24,18,14,22,16,10,18,26,22];
+    const played = Math.floor(hs.length * playedPct);
+    const f = document.createDocumentFragment();
+    hs.forEach((h,i) => {
+      const b = document.createElement('div');
+      b.className = 'mwf-bar' + (i < played ? ' p' : '');
+      b.style.height = h + 'px';
+      f.appendChild(b);
+    });
+    el.appendChild(f);
+  }
+  buildWf('wf1', 0.35);
+  buildWf('wf2', 0);
+  buildWf('wf3', 0);
+
+  /* toggle play button */
+  function togglePlay(btn) {
+    const svg = btn.querySelector('svg');
+    const playing = btn.dataset.p === '1';
+    svg.innerHTML = playing
+      ? '<polygon points="5 3 19 12 5 21 5 3"/>'
+      : '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
+    btn.dataset.p = playing ? '0' : '1';
+  }
+
+  /* ticker */
+  (function(){
+    const people = [
+      {i:'JM',name:'Jay Mills',   role:'Producer',       c:'am'},
+      {i:'SR',name:'Sara R.',     role:'Musician',       c:'bl'},
+      {i:'TK',name:'Tom K.',      role:'Sound Engineer', c:'wh'},
+      {i:'AN',name:'Aisha N.',    role:'Sound Creative', c:'am'},
+      {i:'DP',name:'Dev P.',      role:'Beatmaker',      c:'bl'},
+      {i:'LC',name:'Luna Cruz',   role:'Vocalist',       c:'wh'},
+      {i:'MO',name:'Marcus O.',   role:'Producer',       c:'am'},
+      {i:'RF',name:'Rina F.',     role:'Composer',       c:'bl'},
+      {i:'CW',name:'Chris W.',    role:'Engineer',       c:'wh'},
+      {i:'YB',name:'Yemi B.',     role:'Musician',       c:'am'},
+    ];
+    const t = document.getElementById('ticker');
+    const f = document.createDocumentFragment();
+    [...people,...people].forEach(p=>{
+      const d = document.createElement('div');
+      d.className = 'tick-pill';
+      d.innerHTML = `<div class="tick-av ta-${p.c}">${p.i}</div><div><div class="tick-name">${p.name}</div><div class="tick-role">${p.role}</div></div>`;
+      f.appendChild(d);
+    });
+    t.appendChild(f);
+  })();
+
+  /* form */
+  function focusEmail() { document.getElementById('hero-email').focus(); }
+
+  function handleSubmit(id) {
+    const eId = id==='hero' ? 'hero-email' : 'cta-email';
+    const bId = id==='hero' ? 'heroBtn'    : 'ctaBtn';
+    const wId = id==='hero' ? 'heroWrap'   : 'ctaWrap';
+    const sId = id==='hero' ? 'heroSuccess': 'ctaSuccess';
+    const inp = document.getElementById(eId);
+    const btn = document.getElementById(bId);
+    if (!inp.value || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(inp.value)) {
+      inp.style.borderColor = 'rgba(239,68,68,.55)';
+      inp.style.boxShadow   = '0 0 0 3px rgba(239,68,68,.08)';
+      inp.focus();
+      setTimeout(()=>{ inp.style.borderColor=''; inp.style.boxShadow=''; }, 2000);
+      return;
+    }
+    btn.disabled = true; btn.textContent = 'Joining…';
+    setTimeout(()=>{
+      document.getElementById(wId).classList.add('hide');
+      document.getElementById(sId).classList.add('show');
+    }, 700);
+  }
+
+  document.getElementById('hero-email').addEventListener('keydown', e=>{ if(e.key==='Enter') handleSubmit('hero'); });
+  document.getElementById('cta-email').addEventListener('keydown',  e=>{ if(e.key==='Enter') handleSubmit('cta');  });
+
+  /* reveal */
+  (function(){
+    const els = document.querySelectorAll('.rev');
+    if (!('IntersectionObserver' in window)) { els.forEach(e=>e.classList.add('in')); return; }
+    const obs = new IntersectionObserver(en=>{
+      en.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target); } });
+    },{threshold:.1});
+    els.forEach(e=>obs.observe(e));
+  })();
+</script>
+</body>
+</html>
