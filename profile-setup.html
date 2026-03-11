@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Set up your profile — Mixmomnt</title>
+  <meta name="description" content="Set up your Mixmomnt profile. No face required." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/app.css" />
+  <style>
+    .profile-wrap {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 16px 40px;
+    }
+    /* Wider card for avatar + fields layout */
+    .profile-card {
+      background: var(--elevated);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      max-width: 480px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 36px 32px;
+    }
+    .profile-heading {
+      margin-bottom: 6px;
+      font-size: 1.65rem;
+    }
+    .profile-subtext {
+      font-size: 0.9rem;
+      color: var(--text-2);
+      margin-bottom: 28px;
+    }
+    /* Avatar section */
+    .avatar-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+    .avatar-trigger {
+      cursor: pointer;
+      border-radius: 50%;
+      display: block;
+      position: relative;
+    }
+    .avatar-trigger:focus-within {
+      outline: 2px solid var(--amber);
+      outline-offset: 3px;
+    }
+    /* The visible avatar circle — defaults to amber initials */
+    #avatar-preview {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: rgba(245,158,11,0.14);
+      color: var(--amber);
+      font-size: 1.4rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      pointer-events: none;
+      transition: opacity 150ms ease;
+    }
+    #avatar-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+    .avatar-trigger:hover #avatar-preview { opacity: 0.8; }
+    /* Reserve error space */
+    .form-error { min-height: 1em; }
+    .form-global-error {
+      font-size: 0.85rem;
+      color: var(--error);
+      min-height: 1.2em;
+      margin-bottom: 12px;
+      display: none;
+    }
+    .form-global-error.show { display: block; }
+    /* Bio character count row */
+    .bio-footer {
+      display: flex;
+      justify-content: flex-end;
+    }
+    .char-count {
+      font-size: 0.76rem;
+      color: var(--text-3);
+    }
+  </style>
+</head>
+<body class="page-loading">
+
+  <nav class="app-nav">
+    <a href="/" class="nav-logo">mix<em>momnt</em></a>
+  </nav>
+
+  <main class="profile-wrap">
+    <div class="profile-card">
+      <h1 class="profile-heading">Set up your profile</h1>
+      <p class="profile-subtext">Tell the community who you are. No face required.</p>
+
+      <!-- Avatar section: label wraps the file input so clicking the circle triggers the picker -->
+      <div class="avatar-section">
+        <label class="avatar-trigger" for="avatar-input" aria-label="Upload profile photo (optional)">
+          <div id="avatar-preview" aria-live="polite" aria-label="Avatar preview">?</div>
+          <!-- Visually hidden file input — accessible via label click -->
+          <input
+            class="sr-only"
+            type="file"
+            id="avatar-input"
+            name="avatar"
+            accept="image/*"
+            tabindex="0"
+          />
+        </label>
+        <span class="form-hint">Click to upload a photo (optional)</span>
+      </div>
+
+      <div id="global-error" class="form-global-error" role="alert"></div>
+
+      <form id="profile-form" novalidate>
+
+        <!-- Display name -->
+        <div class="form-field">
+          <label class="form-label" for="display-name">Display name</label>
+          <input
+            class="form-input"
+            type="text"
+            id="display-name"
+            name="display_name"
+            autocomplete="nickname"
+            placeholder="e.g. beatsbytae"
+            maxlength="40"
+            required
+          />
+          <span class="form-error" id="display-name-error" role="alert"></span>
+        </div>
+
+        <!-- Bio -->
+        <div class="form-field">
+          <label class="form-label" for="bio">Bio</label>
+          <textarea
+            class="form-input"
+            id="bio"
+            name="bio"
+            placeholder="Producer. Engineer. Sound nerd."
+            maxlength="160"
+            rows="3"
+          ></textarea>
+          <div class="bio-footer">
+            <span class="form-hint char-count" id="char-count">0/160</span>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-primary" id="submit-btn">
+          Save profile
+        </button>
+
+      </form>
+    </div>
+  </main>
+
+  <script type="module" src="/js/profile-setup.js"></script>
+</body>
+</html>
