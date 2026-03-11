@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-stopped_at: Completed 01-identity-04-PLAN.md
-last_updated: "2026-03-11T08:51:52.475Z"
+stopped_at: Completed 01-identity-05-PLAN.md — Phase 1 complete
+last_updated: "2026-03-11T09:09:16.861Z"
 last_activity: 2026-03-11 — Roadmap created, 3 phases derived from 21 v1 requirements
 progress:
   total_phases: 3
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 5
-  completed_plans: 4
+  completed_plans: 5
   percent: 0
 ---
 
@@ -54,6 +54,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 01-identity P02 | 3min | 2 tasks | 3 files |
 | Phase 01-identity P03 | 3min | 2 tasks | 9 files |
 | Phase 01-identity P04 | 3min | 2 tasks | 2 files |
+| Phase 01-identity P05 | 5min | 1 tasks | 0 files |
 
 ## Accumulated Context
 
@@ -78,6 +79,8 @@ Recent decisions affecting current work:
 - [Phase 01-identity]: Avatar preview uses mutable let ref — img/div swaps stay in sync when FileReader replaces initials circle with image
 - [Phase 01-identity]: existingAvatarUrl tracked separately — preserves existing avatar_url when user doesn't pick a new file on return visit
 - [Phase 01-identity]: Redirect to /feed.html on profile save success — page doesn't exist until Phase 3; 404 is expected and documented
+- [Phase 01-identity]: Phase 1 declared complete — all AUTH-01, AUTH-02, AUTH-03, AUTH-04, PROF-01, PROF-02 verified manually against live Supabase project
+- [Phase 01-identity]: profiles table INSERT RLS policy applied manually in Supabase — auth.uid() = id check required; always provision INSERT + SELECT + UPDATE policies together
 
 ### Pending Todos
 
@@ -89,6 +92,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-11T08:51:52.473Z
-Stopped at: Completed 01-identity-04-PLAN.md
+Last session: 2026-03-11T09:09:16.858Z
+Stopped at: Completed 01-identity-05-PLAN.md — Phase 1 complete
 Resume file: None

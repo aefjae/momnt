@@ -97,6 +97,14 @@ Supabase Storage bucket `avatars` must exist with public read access and RLS pol
 - PROF-01 and PROF-02 are fully implemented
 - profile-setup.html is the redirect target from login.js when display_name is null — onboarding gate is live
 
+## Self-Check: PASSED
+
+- FOUND: profile-setup.html
+- FOUND: js/profile-setup.js
+- FOUND: .planning/phases/01-identity/01-04-SUMMARY.md
+- FOUND commit: 7c2a7f2 (feat(01-04): build profile-setup.html)
+- FOUND commit: 52d3b92 (feat(01-04): build js/profile-setup.js)
+
 ---
 *Phase: 01-identity*
 *Completed: 2026-03-11*
