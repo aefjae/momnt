@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-stopped_at: Completed 01-identity-01-PLAN.md
-last_updated: "2026-03-11T08:30:38.901Z"
+stopped_at: Completed 01-identity-02-PLAN.md
+last_updated: "2026-03-11T08:38:39.282Z"
 last_activity: 2026-03-11 — Roadmap created, 3 phases derived from 21 v1 requirements
 progress:
   total_phases: 3
   completed_phases: 0
   total_plans: 5
-  completed_plans: 1
+  completed_plans: 2
   percent: 0
 ---
 
@@ -51,6 +51,7 @@ Progress: [░░░░░░░░░░] 0%
 
 *Updated after each plan completion*
 | Phase 01-identity P01 | 10min | 2 tasks | 2 files |
+| Phase 01-identity P02 | 3min | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -66,6 +67,10 @@ Recent decisions affecting current work:
 - [Phase 01-identity]: Supabase Auth as identity backend — email/password, no OAuth in v1
 - [Phase 01-identity]: profiles table auto-populated by DB trigger on_auth_user_created — no manual insert in app code
 - [Phase 01-identity]: js/config.js gitignored — credentials not committed; anon key is public-safe but project-specific config kept local
+- [Phase 01-identity]: CDN ESM import for supabase-js — no build step, matches project plain HTML/JS approach
+- [Phase 01-identity]: Singleton client in js/supabase.js — all pages import from here to prevent session fragmentation
+- [Phase 01-identity]: redirectIfAuth checks profiles.display_name to route new vs returning users to profile-setup or feed
+- [Phase 01-identity]: .page-loading opacity-0 pattern prevents flash of unauthenticated page content during getSession() check
 
 ### Pending Todos
 
@@ -77,6 +82,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-11T08:30:38.899Z
-Stopped at: Completed 01-identity-01-PLAN.md
+Last session: 2026-03-11T08:38:39.279Z
+Stopped at: Completed 01-identity-02-PLAN.md
 Resume file: None
