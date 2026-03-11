@@ -1,2 +1,1 @@
-# Supabase credentials — never commit
-js/config.js
+# js/config.js is intentionally committed — Supabase anon key is public-safe, RLS enforces access control
