@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-stopped_at: Phase 1 context gathered
-last_updated: "2026-03-11T04:06:21.930Z"
+stopped_at: Completed 01-identity-01-PLAN.md
+last_updated: "2026-03-11T08:30:38.901Z"
 last_activity: 2026-03-11 — Roadmap created, 3 phases derived from 21 v1 requirements
 progress:
   total_phases: 3
   completed_phases: 0
-  total_plans: 0
-  completed_plans: 0
+  total_plans: 5
+  completed_plans: 1
   percent: 0
 ---
 
@@ -50,6 +50,7 @@ Progress: [░░░░░░░░░░] 0%
 - Trend: -
 
 *Updated after each plan completion*
+| Phase 01-identity P01 | 10min | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -62,6 +63,9 @@ Recent decisions affecting current work:
 - No face required — profile photo optional; platform must work without avatar
 - Web-first — responsive down to 375px; no native app in v1
 - Dark design system established on landing page — all app screens follow same token set
+- [Phase 01-identity]: Supabase Auth as identity backend — email/password, no OAuth in v1
+- [Phase 01-identity]: profiles table auto-populated by DB trigger on_auth_user_created — no manual insert in app code
+- [Phase 01-identity]: js/config.js gitignored — credentials not committed; anon key is public-safe but project-specific config kept local
 
 ### Pending Todos
 
@@ -73,6 +77,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-11T04:06:21.927Z
-Stopped at: Phase 1 context gathered
-Resume file: .planning/phases/01-identity/01-CONTEXT.md
+Last session: 2026-03-11T08:30:38.899Z
+Stopped at: Completed 01-identity-01-PLAN.md
+Resume file: None

@@ -29,18 +29,18 @@
 
 ### Profiles
 
-- [ ] **PROF-01**: User can create a profile with display name and bio
-- [ ] **PROF-02**: Profile photo is optional — platform works without a face/avatar
+- [x] **PROF-01**: User can create a profile with display name and bio
+- [x] **PROF-02**: Profile photo is optional — platform works without a face/avatar
 - [ ] **PROF-03**: User can view another creator's profile and their posts
 - [ ] **PROF-04**: User can follow another creator
 - [ ] **PROF-05**: User can unfollow a creator
 
 ### Auth
 
-- [ ] **AUTH-01**: User can sign up with email and password
-- [ ] **AUTH-02**: User can log in and stay logged in across sessions
-- [ ] **AUTH-03**: User can log out
-- [ ] **AUTH-04**: User can reset password via email link
+- [x] **AUTH-01**: User can sign up with email and password
+- [x] **AUTH-02**: User can log in and stay logged in across sessions
+- [x] **AUTH-03**: User can log out
+- [x] **AUTH-04**: User can reset password via email link
 
 ## v2 Requirements
 
@@ -76,12 +76,12 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| AUTH-01 | Phase 1 | Pending |
-| AUTH-02 | Phase 1 | Pending |
-| AUTH-03 | Phase 1 | Pending |
-| AUTH-04 | Phase 1 | Pending |
-| PROF-01 | Phase 1 | Pending |
-| PROF-02 | Phase 1 | Pending |
+| AUTH-01 | Phase 1 | Complete |
+| AUTH-02 | Phase 1 | Complete |
+| AUTH-03 | Phase 1 | Complete |
+| AUTH-04 | Phase 1 | Complete |
+| PROF-01 | Phase 1 | Complete |
+| PROF-02 | Phase 1 | Complete |
 | PROF-03 | Phase 2 | Pending |
 | PROF-04 | Phase 2 | Pending |
 | PROF-05 | Phase 2 | Pending |
