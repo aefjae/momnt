@@ -28,7 +28,14 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. User can log out from any page and be returned to a logged-out state
   4. User can reset a forgotten password via an email link and regain access
   5. User can create a profile with display name and bio — avatar is optional and the platform works without one
-**Plans**: TBD
+**Plans**: 5 plans
+
+Plans:
+- [ ] 01-01-PLAN.md — Supabase backend provisioning + js/config.js (human action gate)
+- [ ] 01-02-PLAN.md — Shared JS foundation: js/supabase.js, js/auth-guard.js, css/app.css
+- [ ] 01-03-PLAN.md — Auth pages: signup, login, forgot-password, update-password (AUTH-01–04)
+- [ ] 01-04-PLAN.md — Profile setup page: display name, bio, optional avatar with initials fallback (PROF-01–02)
+- [ ] 01-05-PLAN.md — Phase smoke test checkpoint: all 6 requirements verified manually
 
 ### Phase 2: Creation
 **Goal**: Users can create, edit, and delete posts that combine a photo and/or audio with a caption and tags
@@ -61,6 +68,6 @@ Phases execute in numeric order: 1 → 2 → 3
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Identity | 0/TBD | Not started | - |
+| 1. Identity | 0/5 | Planned | - |
 | 2. Creation | 0/TBD | Not started | - |
 | 3. Social | 0/TBD | Not started | - |
